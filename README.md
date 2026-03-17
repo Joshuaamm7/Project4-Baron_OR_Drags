@@ -69,13 +69,23 @@ After cleaning, the dataset had **20,106 rows** with no remaining missing values
 
 #### Distribution of Dragons Secured
 
-<!-- PLOTLY PLACEHOLDER: Distribution of Dragons Secured (histogram of `dragons` column) -->
+<iframe
+  src="assets/dragon_distribution.html"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe>
 
 Most teams secure between 1 and 3 dragons per game. Very few teams reach 5 or more, and securing 7 dragons is extremely rare.
 
 #### Distribution of Barons Secured
 
-<!-- PLOTLY PLACEHOLDER: Distribution of Barons Secured (histogram of `barons` column) -->
+<iframe
+  src="assets/barons_distribution.html"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe>
 
 Baron is a rarer objective — most teams secure either 0 or 1 per game. Multiple barons in a single game is uncommon and signals a prolonged match.
 
@@ -83,13 +93,23 @@ Baron is a rarer objective — most teams secure either 0 or 1 per game. Multipl
 
 #### Dragons Secured vs Match Outcome
 
-<!-- PLOTLY PLACEHOLDER: Box plot — Dragons Secured vs Match Outcome (result on x-axis, dragons on y-axis) -->
+<iframe
+  src="assets/Dragons_Sec_vs_Match_Outcome.html"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe>
 
 Teams that win typically secure 2–4 dragons, while losing teams often secure only 1–2. However, the distributions overlap considerably, meaning dragons alone do not guarantee victory.
 
 #### Barons Secured vs Match Outcome
 
-<!-- PLOTLY PLACEHOLDER: Box plot — Barons Secured vs Match Outcome (result on x-axis, barons on y-axis) -->
+<iframe
+  src="assets/barons_Sec_vs_Match_Outcome.html"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe>
 
 The contrast here is much sharper. Most losing teams secure 0 barons, while winning teams almost always secure at least 1. This suggests Baron control is significantly more decisive than dragon control.
 
@@ -110,7 +130,7 @@ Teams with Baron advantage win over 90% of the time. Baron has the largest win-r
 
 #### Win Rate vs Dragons Secured
 
-<!-- PLOTLY PLACEHOLDER: Line chart — Win Rate vs Dragons Secured (dragon_winrate table) -->
+
 
 | Dragons Secured | Win Rate |
 |---|---|
@@ -127,7 +147,7 @@ Win rate increases sharply with each additional dragon, suggesting that while in
 
 #### Win Rate vs Barons Secured
 
-<!-- PLOTLY PLACEHOLDER: Line chart — Win Rate vs Barons Secured (baron_winrate table) -->
+
 
 | Barons Secured | Win Rate |
 |---|---|
@@ -158,7 +178,12 @@ One column with non-trivial missingness is `atakhans`, which has **1,686 missing
 
 **Result:** Observed difference = −0.039, p-value = 0.266.
 
-<!-- PLOTLY PLACEHOLDER: Histogram of permutation distribution for dragons missingness test, with red vertical line at observed statistic -->
+<iframe
+  src="assets/atakhans_missingness_permutation_dragons.html"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe>
 
 Since the p-value (0.266) is well above the 0.05 significance level, we **fail to reject the null hypothesis**. There is no strong evidence that the missingness of `atakhans` depends on dragons secured.
 
@@ -172,7 +197,12 @@ Since the p-value (0.266) is well above the 0.05 significance level, we **fail t
 
 **Result:** Observed difference = −1.454, p-value ≈ 0.0.
 
-<!-- PLOTLY PLACEHOLDER: Histogram of permutation distribution for teamkills missingness test, with red vertical line at observed statistic -->
+<iframe
+  src="assets/atakhans_missingness_permutation_teamkills.html"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe>
 
 Teams where `atakhans` is missing have approximately 1.45 fewer kills on average than teams where it is not missing. Since the p-value is essentially 0, we **reject the null hypothesis**. The missingness of `atakhans` depends on team kills — games with more kills are more likely to have non-missing `atakhans` values, which aligns with the idea that higher-kill, more prolonged games are more likely to include this objective.
 
@@ -202,7 +232,12 @@ The observed test statistic was **0.079**, meaning the win-rate gap associated w
 
 A permutation test with 2,000 simulations shuffled match results to generate a null distribution. The resulting p-value was approximately **0.0**, meaning none of the 2,000 simulated statistics were as large as the observed value.
 
-<!-- PLOTLY PLACEHOLDER: Histogram of permutation test distribution with red vertical line at observed statistic (0.079) -->
+<iframe
+  src="assets/Hypothesis_test_permutation_of_distribution.html"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe>
 
 Since the p-value is far below the 0.05 significance level, we **reject the null hypothesis**. This provides strong evidence that Baron advantage is more predictive of match outcomes than Dragon advantage.
 
@@ -297,7 +332,7 @@ The observed accuracy difference was **0.261**, meaning the model is approximate
 
 A permutation test with 2,000 simulations shuffled the `long_game` labels to generate a null distribution. The resulting p-value was **0.0165**.
 
-<!-- PLOTLY PLACEHOLDER: Histogram of permutation distribution for fairness analysis, with red vertical line at observed difference of 0.261 -->
+<!-- TODO: Add fairness analysis permutation plot once exported as assets/fairness_permutation.html -->
 
 Since the p-value (0.0165) is below the 0.05 significance level, we **reject the null hypothesis**. The model performs significantly better on long games than on short games.
 
