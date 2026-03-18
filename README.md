@@ -10,7 +10,7 @@
 
 ### Background
 
-Competitive multiplayer games like League of Legends involve teams competing to control strategic objectives throughout a match. Among these objectives, dragons provide permanent team-wide buffs that can significantly influence the outcome of the game. Different dragon types grant different advantages — such as increased damage, movement speed, or durability. In addition to dragons, Baron Nashor provides a powerful temporary buff that can shift the momentum of a match in a single skirmish.
+Competitive multiplayer games like League of Legends involve teams competing to control strategic objectives throughout a match. Among these objectives, dragons provide permanent team-wide buffs that can significantly influence the outcome of the game. Different dragon types grant different advantages, such as increased damage, movement speed, or durability. In addition to dragons, Baron Nashor provides a powerful temporary buff that can shift the momentum of a match in a single skirmish.
 
 Because professional and ranked players often prioritize these objectives, understanding how different objectives influence the probability of winning can provide insight into effective gameplay strategies.
 
@@ -22,7 +22,7 @@ Both objectives provide powerful advantages. Dragons grant permanent stacking bu
 
 ### Dataset
 
-The dataset comes from [Oracle's Elixir](https://oracleselixir.com/) and contains 2025 professional League of Legends esports match data. The raw dataset has **120,636 rows** and **165 columns**. Each match contributes 12 rows: 10 player-level rows and 2 team-level rows. Since this project focuses on objective control and team outcomes, only the **2 team-level rows per game** (20,106 rows total across 10,053 games) are used for analysis.
+The dataset comes from [Oracle's Elixir](https://oracleselixir.com/) and contains years of professional League of Legends esports match data. The raw dataset has **120,636 rows** and **165 columns**. Each match contributes 12 rows: 10 player-level rows and 2 team-level rows. Since this project focuses on objective control and team outcomes, only the **2 team-level rows per game** (20,106 rows total across 10,053 games) are used for analysis.
 
 The key columns used in this analysis are:
 
@@ -87,7 +87,7 @@ Most teams secure between 1 and 3 dragons per game. Very few teams reach 5 or mo
   frameborder="0"
 ></iframe>
 
-Baron is a rarer objective — most teams secure either 0 or 1 per game. Multiple barons in a single game is uncommon and signals a prolonged match.
+Baron is a rarer objective, most teams secure either 0 or 1 per game. Multiple barons in a single game is uncommon and signals a long match.
 
 ### Bivariate Analysis
 
@@ -111,7 +111,7 @@ Teams that win typically secure 2–4 dragons, while losing teams often secure o
   frameborder="0"
 ></iframe>
 
-The contrast here is much sharper. Most losing teams secure 0 barons, while winning teams almost always secure at least 1. This suggests Baron control is significantly more decisive than dragon control.
+The contrast here is much obvious. Most losing teams secure 0 barons, while winning teams almost always secure at least 1. This suggests Baron control is significantly more decisive than dragon control.
 
 ### Aggregate Table: Win Rate by Objective Advantage
 
@@ -156,7 +156,6 @@ Win rate increases sharply with each additional dragon, suggesting that while in
 | 2 | 83.4% |
 | 3 | 83.3% |
 | 4 | 50.0% |
-| 
 
 Securing even a single Baron pushes a team's win rate above 84%. Teams that fail to secure any Baron win less than 22% of the time.
 
@@ -166,7 +165,7 @@ Securing even a single Baron pushes a team's win rate above 84%. Teams that fail
 
 ### MNAR Analysis
 
-One column with non-trivial missingness is `atakhans`, which has **1,686 missing values**. The missingness likely occurs because this objective does not appear in every match — it may be absent in certain game patches or in games that end before the objective spawns. Because the probability that a value is missing may depend on factors not directly observed in the dataset (such as game patch or match duration), the missingness of `atakhans` is plausibly **Missing Not At Random (MNAR)**.
+One column with non-trivial missingness is `atakhans`, which has **1,686 missing values**. The missingness likely occurs because this objective does not appear in every match. It may be absent in certain game patches or in games that end before the objective spawns. Because the probability that a value is missing may depend on factors not directly observed in the dataset (such as game patch or match duration), the missingness of `atakhans` is plausibly **Missing Not At Random (MNAR)**.
 
 ### Permutation Test 1: Atakhans Missingness Does NOT Depend on Dragons
 
@@ -204,7 +203,7 @@ Since the p-value (0.266) is well above the 0.05 significance level, we **fail t
   frameborder="0"
 ></iframe>
 
-Teams where `atakhans` is missing have approximately 1.45 fewer kills on average than teams where it is not missing. Since the p-value is essentially 0, we **reject the null hypothesis**. The missingness of `atakhans` depends on team kills — games with more kills are more likely to have non-missing `atakhans` values, which aligns with the idea that higher-kill, more prolonged games are more likely to include this objective.
+Teams where `atakhans` is missing have approximately 1.45 fewer kills on average than teams where it is not missing. Since the p-value is essentially 0, we **reject the null hypothesis**. The missingness of `atakhans` depends on team kills. That tells us games with more kills are more likely to have non-missing `atakhans` values, which aligns with the idea that higher-kill, more prolonged games are more likely to include this objective.
 
 ---
 
@@ -261,7 +260,7 @@ The model uses features measurable during gameplay: `dragons`, `barons`, `herald
 
 ### Evaluation Metric
 
-Models are evaluated using **accuracy** — the proportion of correctly predicted match outcomes.
+Models are evaluated using **accuracy**, which is the proportion of correctly predicted match outcomes.
 
 ---
 
@@ -273,7 +272,7 @@ The baseline model uses two quantitative features: `dragons` and `barons`, repre
 
 ### Model
 
-Logistic Regression was used as the baseline classifier due to its simplicity and interpretability for binary classification.
+I choose to use Logistic Regression as the baseline classifier because of its simplicity and easy interpretability for binary classification.
 
 ### Performance
 
@@ -304,7 +303,7 @@ The regularization strength `C` in Logistic Regression was tuned using `GridSear
 
 **Final Model Accuracy: 0.9887**
 
-This is a substantial improvement over the baseline accuracy of 0.8224 — an improvement of approximately **16.6 percentage points**. The engineered difference features provide significantly more predictive information than raw objective counts, because they directly measure which team dominated objectives and resources during the game.
+This is a substantial improvement over the baseline accuracy of 0.8224, which is an improvement of approximately **16.6 percentage points**. The engineered difference features provide significantly more predictive information than raw objective counts, because they directly measure which team dominated objectives and resources during the game.
 
 ---
 
